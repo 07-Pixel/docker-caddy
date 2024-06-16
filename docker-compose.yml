@@ -3,7 +3,7 @@ services:
     application:
         image: rjbaquirin/php:8.3-alpine
         build: 
-            context: ./php/phptest1
+            context: ./php/php83-alpine
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
