@@ -53,6 +53,7 @@ services:
         ports:
             - '${PUSHER_PORT:-6001}:6001'
             - '${PUSHER_METRICS_PORT:-9601}:9601'
+        profiles: [websocket]
     redis:
         image: 'redis:alpine'        
         ports:
@@ -81,12 +82,14 @@ services:
         depends_on:
             - application
     queueswan:
-        image: rjphp8.3-test1
+        image: rjbaquirin/php:8.3-alpine
         restart: always
         working_dir: /app
         volumes:
             - '${APP_ROOT_DIR}:/app'
         command: php artisan queue:work --sleep=1 --tries=3 --queue=high,default,low
+        depends_on:
+            - application
 networks:
     default:
         name: ${APP_NAME}-network
