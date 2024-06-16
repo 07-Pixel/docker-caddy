@@ -1,21 +1,17 @@
 name: ${APP_NAME}
 services:
     application:
-        image: rjphp8.3        
+        image: rjbaquirin/php:8.3-alpine
         build: 
-            context: ./php/php83
+            context: ./php/phptest1
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
-        extra_hosts:
-            - 'host.docker.internal:host-gateway'
         ports:
             - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
         environment:
             WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1
-            XDEBUG_MODE: '${XDEBUG_MODE:-off}'
-            XDEBUG_CONFIG: '${XDEBUG_CONFIG:-client_host=host.docker.internal}'
             IGNITION_LOCAL_SITES_PATH: '${PWD}'
         volumes:
             - '${APP_ROOT_DIR}:/app'
@@ -84,6 +80,13 @@ services:
         - '443:443'
         depends_on:
             - application
+    queueswan:
+        image: rjphp8.3-test1
+        restart: always
+        working_dir: /app
+        volumes:
+            - '${APP_ROOT_DIR}:/app'
+        command: php artisan queue:work --sleep=1 --tries=3 --queue=high,default,low
 networks:
     default:
         name: ${APP_NAME}-network

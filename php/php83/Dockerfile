@@ -1,4 +1,4 @@
-FROM php:8.2-fpm-alphine
+FROM php:8.2-fpm
 
 ARG WWWGROUP
 ENV TZ=UTC
@@ -86,9 +86,7 @@ RUN pecl install mongodb \
     && docker-php-ext-enable mongodb
 
 # Install xdebug 3.3.2
-RUN pecl install xdebug && \
-    docker-php-ext-enable xdebug && \
-    mkdir /var/log/xdebug
+
 
 RUN docker-php-ext-install pdo_mysql && \
     docker-php-ext-install pdo_sqlite && \

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# FOR TESTING BUILD IMAGE ONLY
+# attach a profile to the docker-compose service container called app
+# Build the image with a temporary tag
+docker build - < ./php/phptest1/Dockerfile -t rjbaquirin:php8.3-alpine-test
+
+
+# Check if tests passed (modify the condition based on your test output)
+if [ $? -eq 0 ]; then
+  echo "Tests Passed!"
+else
+  echo "Tests Failed!"
+  exit 1  # Exit with an error code if tests fail (optional)
+fi
+
+# Remove the temporary image
+docker image rm rjbaquirin:php8.3-alpine-test
+
+echo "Test and cleanup complete."

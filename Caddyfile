@@ -1,3 +1,5 @@
+# CHANGE THIS TO YOUR PREFERED DOMAIN NAME
+# OR CHECK DOCUMENTATION https://caddyserver.com/docs/
 localhost {
   root * /app/public
   encode gzip
