@@ -80,7 +80,7 @@ services:
         - '443:443'
         depends_on:
             - application
-    queueswan:
+    queue-worker:
         image: rjbaquirin/php:8.3-alpine
         restart: always
         working_dir: /app
