@@ -18,7 +18,6 @@ services:
             - ./php/php83/php.ini:/usr/local/etc/php/php.ini
         depends_on:
             - mysql
-            - soketi
             - redis
     mysql:
         image: 'mysql/mysql-server:8.0'        
